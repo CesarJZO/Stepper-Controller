@@ -9,6 +9,7 @@ namespace StepperController
     public partial class MainWindow
     {
         private readonly SerialConnection _serial;
+        private bool _busy;
         
         public MainWindow()
         {
@@ -20,48 +21,50 @@ namespace StepperController
         private void SerialOnStep(object sender, string e)
         {
             TxtStep.Text = e;
+            _busy = e != "";
         }
         
         private void BtnSimpleCw_OnClick(object sender, RoutedEventArgs e)
         {
-            TxtMode.Text = "Simple step (clockwise)";
-            _serial.SendMessage("scw");
+            SendMessage("Simple step (clockwise)", "scw");
         }
 
         private void BtnSimpleCc_OnClick(object sender, RoutedEventArgs e)
         {
-            TxtMode.Text = "Simple step (counterclockwise)";
-            _serial.SendMessage("scc");
+            SendMessage("Simple step (counterclockwise)", "scc");
         }
 
         private void BtnFullCw_OnClick(object sender, RoutedEventArgs e)
         {
-            TxtMode.Text = "Full step (clockwise)";
-            _serial.SendMessage("fcw");
+            SendMessage("Full step (clockwise)", "fcw");
         }
 
         private void BtnFullCc_OnClick(object sender, RoutedEventArgs e)
         {
-            TxtMode.Text = "Full step (counterclockwise)";
-            _serial.SendMessage("fcc");
+            SendMessage("Full step (counterclockwise)", "fcc");
         }
 
         private void BtnHalfCw_OnClick(object sender, RoutedEventArgs e)
         {
-            TxtMode.Text = "Half step (clockwise)";
-            _serial.SendMessage("hcw");
+            SendMessage("Half step (clockwise)", "hcw");
         }
 
         private void BtnHalfCc_OnClick(object sender, RoutedEventArgs e)
         {
-            TxtMode.Text = "Half step (counterclockwise)";
-            _serial.SendMessage("hcc");
+            SendMessage("Half step (counterclockwise)", "hcc");
         }
 
         private void BtnStop_OnClick(object sender, RoutedEventArgs e)
         {
             TxtMode.Text = "";
             _serial.SendMessage("stop");
+        }
+
+        private void SendMessage(string uiText, string sm)
+        {
+            if (_busy) return;
+            TxtMode.Text = uiText;
+            _serial.SendMessage(sm);
         }
     }
 }

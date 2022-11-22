@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using StepperController.Serial;
 
 namespace StepperController
@@ -19,15 +6,22 @@ namespace StepperController
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private readonly SerialConnection _serial;
+        
         public MainWindow()
         {
             InitializeComponent();
             _serial = new SerialConnection();
+            _serial.OnStep += SerialOnStep;
         }
 
+        private void SerialOnStep(object sender, string e)
+        {
+            TxtStep.Text = e;
+        }
+        
         private void BtnSimpleCw_OnClick(object sender, RoutedEventArgs e)
         {
             TxtMode.Text = "Simple step (clockwise)";

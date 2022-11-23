@@ -1,14 +1,8 @@
 # Stepper Controller
 
-This is a simple desktop app for a stepper motor controller. It is made using WPF.
+This is a simple desktop app for a stepper motor controller. It is made using WPF with .NET Framework 4.8. It can be built with Rider IDE or Visual Studio.
 
-To build this, you need to have the dotNet Core installed; 6.0 in my case.
-
-Use this command to build an executable on the parent folder of this solution.
-
-```powershell
-dotnet publish .\StepperController\StepperController.csproj -o '..\Stepper Controller'
-```
+It is intended to Work alongside this [Arduino](https://github.com/CesarJZO/Arduino) repo, specifically with the StepperMotor circuit.
 
 ## App user interface
 
